@@ -1,0 +1,7 @@
+{
+  "version": 2,
+  "projects": {
+    "stepper": "apps/stepper",
+    "stepper-e2e": "apps/stepper-e2e"
+  }
+}

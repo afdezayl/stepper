@@ -1,0 +1,28 @@
+{
+  "root": "apps/stepper-e2e",
+  "sourceRoot": "apps/stepper-e2e/src",
+  "projectType": "application",
+  "targets": {
+    "e2e": {
+      "executor": "@nrwl/cypress:cypress",
+      "options": {
+        "cypressConfig": "apps/stepper-e2e/cypress.json",
+        "devServerTarget": "stepper:serve:development"
+      },
+      "configurations": {
+        "production": {
+          "devServerTarget": "stepper:serve:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/stepper-e2e/**/*.{js,ts}"]
+      }
+    }
+  },
+  "tags": [],
+  "implicitDependencies": ["stepper"]
+}

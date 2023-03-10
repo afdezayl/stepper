@@ -1,0 +1,91 @@
+{
+  "projectType": "application",
+  "root": "apps/stepper",
+  "sourceRoot": "apps/stepper/src",
+  "prefix": "stepper",
+  "targets": {
+    "build": {
+      "executor": "@angular-devkit/build-angular:browser",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/stepper",
+        "index": "apps/stepper/src/index.html",
+        "main": "apps/stepper/src/main.ts",
+        "polyfills": "apps/stepper/src/polyfills.ts",
+        "tsConfig": "apps/stepper/tsconfig.app.json",
+        "inlineStyleLanguage": "scss",
+        "assets": ["apps/stepper/src/favicon.ico", "apps/stepper/src/assets"],
+        "styles": ["apps/stepper/src/styles.scss"],
+        "scripts": []
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "2kb",
+              "maximumError": "4kb"
+            }
+          ],
+          "fileReplacements": [
+            {
+              "replace": "apps/stepper/src/environments/environment.ts",
+              "with": "apps/stepper/src/environments/environment.prod.ts"
+            }
+          ],
+          "outputHashing": "all"
+        },
+        "development": {
+          "buildOptimizer": false,
+          "optimization": false,
+          "vendorChunk": true,
+          "extractLicenses": false,
+          "sourceMap": true,
+          "namedChunks": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "configurations": {
+        "production": {
+          "browserTarget": "stepper:build:production"
+        },
+        "development": {
+          "browserTarget": "stepper:build:development"
+        }
+      },
+      "defaultConfiguration": "development"
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "browserTarget": "stepper:build"
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "apps/stepper/src/**/*.ts",
+          "apps/stepper/src/**/*.html"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/apps/stepper"],
+      "options": {
+        "jestConfig": "apps/stepper/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}
