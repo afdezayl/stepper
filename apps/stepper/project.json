@@ -1,6 +1,7 @@
 {
+  "name": "stepper",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
-  "root": "apps/stepper",
   "sourceRoot": "apps/stepper/src",
   "prefix": "stepper",
   "targets": {
@@ -80,9 +81,9 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/apps/stepper"],
+      "outputs": ["{workspaceRoot}/coverage/apps/stepper"],
       "options": {
-        "jestConfig": "apps/stepper/jest.config.js",
+        "jestConfig": "apps/stepper/jest.config.ts",
         "passWithNoTests": true
       }
     }
