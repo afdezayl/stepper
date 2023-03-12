@@ -1,11 +1,19 @@
 import {
+  Injectable,
   InjectionToken,
   ModuleWithProviders,
   NgModule,
   Type,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router, ROUTES, Routes } from '@angular/router';
+import {
+  ActivatedRouteSnapshot,
+  CanActivate,
+  Router,
+  RouterStateSnapshot,
+  ROUTES,
+  Routes,
+} from '@angular/router';
 import { WrapperComponent } from './wrapper.component';
 import { StepManager } from './step-manager';
 
@@ -29,6 +37,15 @@ export class StepModule {
       component: s.component,
     }));
 
+    if (internalRoutes.length > 0) {
+      internalRoutes.push({
+        path: '**',
+        component: routes.steps[0].component,
+        canActivate: [RedirectGuard],
+        pathMatch: 'full',
+      });
+    }
+
     return {
       ngModule: StepModule,
       providers: [
@@ -49,5 +66,18 @@ export class StepModule {
         },
       ],
     };
+  }
+}
+
+@Injectable({
+  providedIn: 'root',
+})
+class RedirectGuard implements CanActivate {
+  constructor(private router: Router) {}
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+    this.router.navigateByUrl(state.url + '/0', {
+      skipLocationChange: true,
+    });
+    return false;
   }
 }
