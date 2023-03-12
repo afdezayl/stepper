@@ -14,7 +14,9 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@stepper/step": ["libs/step/src/index.ts"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }
