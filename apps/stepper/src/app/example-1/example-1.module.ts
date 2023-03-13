@@ -5,6 +5,7 @@ import { StepAComponent } from './step-a.component';
 import { StepBComponent } from './step-b.component';
 import { StepCComponent } from './step-c.component';
 import { StepDComponent } from './step-d.component';
+import { StepperSidebarComponent } from './stepper-sidebar.component';
 
 const routes: StepRoutes = {
   steps: [
@@ -13,6 +14,7 @@ const routes: StepRoutes = {
     { title: 'C', component: StepCComponent },
     { title: 'D', component: StepDComponent },
   ],
+  sidebar: StepperSidebarComponent,
 };
 
 @NgModule({

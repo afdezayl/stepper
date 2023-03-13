@@ -9,11 +9,16 @@ import { StepManager } from './step-manager';
   imports: [CommonModule, RouterModule],
   template: `<div>
     <h2>Title</h2>
-    <ul *ngIf="manager.routes | async as routes">
+    <ul class="link-container" *ngIf="manager.routes | async as routes">
       <li *ngFor="let step of routes.steps; let i = index">
-        <a [routerLink]="'' + i" [skipLocationChange]="true">{{
-          step.title
-        }}</a>
+        <a
+          class="link"
+          [routerLink]="'' + i"
+          [skipLocationChange]="true"
+          routerLinkActive="link-active"
+        ></a>
+        <span>{{ step.title }}</span>
+        <router-outlet name="sidebar"></router-outlet>
       </li>
     </ul>
     <div>
@@ -26,6 +31,39 @@ import { StepManager } from './step-manager';
         display: block;
         width: 100%;
         border: 1px solid #999;
+        background-color: #eee;
+      }
+
+      ul.link-container {
+        counter-reset: links;
+      }
+
+      .link::before {
+        counter-increment: links;
+        content: counter(links);
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        height: 40px;
+        width: 40px;
+        border: 1px solid;
+        border-radius: 50%;
+        background-color: #7171fd;
+      }
+
+      .link {
+        text-decoration: none;
+        color: #eee;
+        margin-right: 0.5em;
+      }
+
+      .link-active {
+
+      }
+
+      .link-active::before {
+        background-color: #f35a3c;
+        color: white;
       }
     `,
   ],

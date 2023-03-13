@@ -9,6 +9,7 @@ import { CommonModule } from '@angular/common';
 import {
   ActivatedRouteSnapshot,
   CanActivate,
+  Route,
   Router,
   RouterStateSnapshot,
   ROUTES,
@@ -21,6 +22,7 @@ export const STEP_MANAGER_TOKEN = new InjectionToken<StepManager>('STEP_TOKEN');
 
 export interface StepRoutes {
   steps: Step[];
+  sidebar: Type<any>;
 }
 
 export interface Step {
@@ -32,9 +34,20 @@ export interface Step {
 })
 export class StepModule {
   static forRoot(routes: StepRoutes): ModuleWithProviders<StepModule> {
+    const sidebarPath: Route = {
+      path: '',
+      component: routes.sidebar,
+      outlet: 'sidebar',
+    };
     const internalRoutes: Routes = routes.steps.map((s, i) => ({
       path: `${i}`,
-      component: s.component,
+      children: [
+        {
+          path: '',
+          component: s.component,
+        },
+        sidebarPath,
+      ],
     }));
 
     if (internalRoutes.length > 0) {
@@ -42,7 +55,6 @@ export class StepModule {
         path: '**',
         component: routes.steps[0].component,
         canActivate: [RedirectGuard],
-        pathMatch: 'full',
       });
     }
 
@@ -75,7 +87,9 @@ export class StepModule {
 class RedirectGuard implements CanActivate {
   constructor(private router: Router) {}
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    this.router.navigateByUrl(state.url + '/0', {
+    const url = state.url + '/0';
+    console.log(url);
+    this.router.navigateByUrl(url, {
       skipLocationChange: true,
     });
     return false;

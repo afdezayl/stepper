@@ -9,6 +9,7 @@ const routes: StepRoutes = {
     { title: 'E', component: StepEComponent },
     { title: 'C', component: StepCComponent },
   ],
+  sidebar: StepCComponent
 };
 
 @NgModule({
